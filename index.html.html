@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>VENKY — SUMMER 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#07070a;
+  --s1:#0d0d12;
+  --s2:#121218;
+  --b1:#1a1a24;
+  --b2:#22222e;
+  --accent:#e2ff3f;
+  --red:#ff4a4a;
+  --blue:#3fd4ff;
+  --green:#3fff8c;
+  --purple:#b94fff;
+  --orange:#ff9a3f;
+  --gold:#ffd000;
+  --sub:#525268;
+  --text:#dcdcee;
+  --mono:'Space Mono',monospace;
+  --disp:'Bebas Neue',sans-serif;
+  --sans:'DM Sans',sans-serif;
+}
+
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden}
+
+/* HEADER */
+header{
+  padding:22px 36px 18px;
+  border-bottom:1px solid var(--b1);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;
+}
+.logo{font-family:var(--disp);font-size:clamp(36px,5vw,64px);color:var(--accent);letter-spacing:2px;line-height:1;text-shadow:0 0 30px rgba(226,255,63,.25)}
+.logo small{display:block;font-family:var(--mono);font-size:10px;color:var(--sub);letter-spacing:3px;margin-top:3px}
+
+/* XP WIDGET */
+.xp-widget{display:flex;align-items:center;gap:16px}
+.level-ring{
+  width:56px;height:56px;border-radius:50%;
+  background:conic-gradient(var(--gold) 0deg, var(--b2) 0deg);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;transition:background .5s;
+  box-shadow:0 0 18px rgba(255,208,0,.2);
+}
+.level-ring::before{content:'';position:absolute;inset:4px;border-radius:50%;background:var(--bg)}
+.level-num{position:relative;font-family:var(--disp);font-size:24px;color:var(--gold);line-height:1}
+.xp-text{font-family:var(--mono);font-size:10px;color:var(--sub);letter-spacing:1px}
+.xp-text strong{display:block;font-size:13px;color:var(--gold);letter-spacing:0}
+.xp-bar-outer{width:160px;height:5px;background:var(--b2);border-radius:3px;margin-top:5px;overflow:hidden}
+.xp-bar-inner{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),#ffe566);transition:width .5s ease;box-shadow:0 0 6px rgba(255,208,0,.4)}
+
+/* DAY NAV */
+.day-nav{
+  background:var(--s1);border-bottom:1px solid var(--b1);
+  padding:0 36px;display:flex;align-items:stretch;overflow-x:auto;gap:0;
+}
+.day-nav::-webkit-scrollbar{height:3px;background:var(--b1)}
+.day-nav::-webkit-scrollbar-thumb{background:var(--b2)}
+.day-btn{
+  background:none;border:none;border-bottom:2px solid transparent;
+  color:var(--sub);font-family:var(--mono);font-size:9px;letter-spacing:.5px;
+  padding:12px 14px 10px;cursor:pointer;white-space:nowrap;transition:all .12s;
+  display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;
+}
+.day-btn:hover{color:var(--text)}
+.day-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+.day-btn .dnum{font-size:14px;font-family:var(--disp);letter-spacing:1px}
+.day-btn .ddot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 4px var(--green);display:none;margin-top:1px}
+.day-btn.full .ddot{display:block}
+
+/* TABS */
+.tabs{display:flex;border-bottom:1px solid var(--b1);padding:0 36px;background:var(--s1)}
+.tab{
+  background:none;border:none;border-bottom:2px solid transparent;
+  color:var(--sub);font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  padding:12px 20px;cursor:pointer;transition:all .12s;
+}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab .tbadge{
+  display:inline-block;margin-left:6px;background:var(--b2);
+  color:var(--sub);font-size:8px;padding:1px 5px;border-radius:2px;
+}
+.tab.active .tbadge{background:rgba(226,255,63,.12);color:var(--accent)}
+
+/* LAYOUT */
+.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 160px)}
+
+/* SIDEBAR */
+.sidebar{border-right:1px solid var(--b1);padding:20px 16px;display:flex;flex-direction:column;gap:3px}
+.s-title{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--sub);padding:0 8px 10px;border-bottom:1px solid var(--b1);margin-bottom:6px}
+.s-btn{
+  display:flex;align-items:center;gap:9px;padding:8px 10px;background:none;border:none;
+  border-radius:4px;color:var(--sub);font-family:var(--sans);font-size:12.5px;cursor:pointer;
+  text-align:left;width:100%;transition:all .1s;
+}
+.s-btn:hover{background:var(--s2);color:var(--text)}
+.s-btn.on{background:var(--b1);color:var(--text)}
+.sdot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.sdot.r{background:var(--red);box-shadow:0 0 4px var(--red)}
+.sdot.b{background:var(--blue);box-shadow:0 0 4px var(--blue)}
+.sdot.g{background:var(--green);box-shadow:0 0 4px var(--green)}
+.sdot.p{background:var(--purple);box-shadow:0 0 4px var(--purple)}
+.sdot.o{background:var(--orange);box-shadow:0 0 4px var(--orange)}
+.sdot.y{background:var(--accent);box-shadow:0 0 4px var(--accent)}
+.sdot.w{background:var(--sub)}
+
+.s-foot{margin-top:auto;padding-top:14px;border-top:1px solid var(--b1)}
+.s-prog-row{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;color:var(--sub);margin-bottom:5px;letter-spacing:1px}
+.s-bar{width:100%;height:3px;background:var(--b2);border-radius:2px;margin-bottom:10px;overflow:hidden}
+.s-fill{height:100%;border-radius:2px;background:var(--accent);transition:width .4s;box-shadow:0 0 5px rgba(226,255,63,.3)}
+
+/* MAIN PANEL */
+.panel{padding:24px 32px;overflow-y:auto}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--b1);border:1px solid var(--b1);border-radius:6px;overflow:hidden;margin-bottom:22px}
+.stat{background:var(--s1);padding:10px 12px;text-align:center}
+.stat-n{font-family:var(--disp);font-size:26px;line-height:1}
+.stat-n.g{color:var(--green)}.stat-n.r{color:var(--red)}.stat-n.gold{color:var(--gold)}.stat-n.b{color:var(--blue)}
+.stat-l{font-family:var(--mono);font-size:8px;letter-spacing:1.5px;color:var(--sub);text-transform:uppercase;margin-top:2px}
+
+/* SECTION HEADER */
+.sec-hd{
+  font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--sub);text-transform:uppercase;
+  padding:14px 0 7px;border-bottom:1px solid var(--b1);margin-bottom:3px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.sec-hd .sxp{color:var(--gold);font-size:9px}
+
+/* TASK CARD */
+.tlist{display:flex;flex-direction:column;gap:2px}
+.tc{
+  background:var(--s1);border:1px solid var(--b1);border-left:3px solid var(--b2);
+  border-radius:4px;padding:13px 15px;display:grid;grid-template-columns:20px 1fr auto;
+  align-items:start;gap:13px;animation:fu .15s ease;
+}
+@keyframes fu{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.tc:hover{background:var(--s2)}
+.tc.done{opacity:.38}
+.tc.done .ttl{text-decoration:line-through;color:var(--sub)}
+.tc.lred{border-left-color:var(--red)}.tc.lblu{border-left-color:var(--blue)}.tc.lgrn{border-left-color:var(--green)}
+.tc.lpur{border-left-color:var(--purple)}.tc.lorg{border-left-color:var(--orange)}.tc.lyel{border-left-color:var(--accent)}
+.tc.done.lred{border-left-color:rgba(255,74,74,.2)}.tc.done.lblu{border-left-color:rgba(63,212,255,.2)}
+.tc.done.lgrn{border-left-color:rgba(63,255,140,.2)}.tc.done.lpur{border-left-color:rgba(185,79,255,.2)}
+.tc.done.lorg{border-left-color:rgba(255,154,63,.2)}.tc.done.lyel{border-left-color:rgba(226,255,63,.2)}
+
+.chk{
+  width:18px;height:18px;border:1.5px solid var(--b2);border-radius:3px;background:none;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  margin-top:2px;transition:all .12s;font-size:10px;color:#000;
+}
+.chk:hover{border-color:var(--accent)}
+.chk.on{background:var(--accent);border-color:var(--accent)}
+
+.ttl{font-size:13.5px;font-weight:500;line-height:1.4;margin-bottom:4px}
+.tmeta{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.bdg{font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:2px 6px;border-radius:2px;text-transform:uppercase;font-weight:700}
+.bdg.crit{background:rgba(255,74,74,.12);color:var(--red)}
+.bdg.daily{background:rgba(226,255,63,.1);color:var(--accent)}
+.bdg.inter{background:rgba(63,212,255,.1);color:var(--blue)}
+.bdg.goal{background:rgba(185,79,255,.1);color:var(--purple)}
+.bdg.try{background:rgba(255,154,63,.1);color:var(--orange)}
+.txp{font-family:var(--mono);font-size:9px;color:var(--gold);letter-spacing:.5px}
+.tnote{margin-top:5px;font-size:11px;color:var(--sub);line-height:1.6;font-style:italic}
+.tnote.usr{color:rgba(226,255,63,.7);font-style:normal}
+
+.nbtn{
+  background:none;border:1px solid var(--b2);color:var(--sub);
+  font-family:var(--mono);font-size:8px;letter-spacing:.5px;padding:3px 7px;
+  cursor:pointer;border-radius:2px;transition:all .1s;white-space:nowrap;
+}
+.nbtn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* GOAL CARD (end of summer) */
+.gc{
+  background:var(--s1);border:1px solid var(--b1);border-radius:6px;
+  padding:16px 20px;margin-bottom:8px;
+}
+.gc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.gc-title{font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px}
+.gc-note{font-size:11px;color:var(--sub);line-height:1.6;margin-bottom:10px}
+.prog-row{display:flex;align-items:center;gap:10px}
+.prog-outer{flex:1;height:5px;background:var(--b2);border-radius:3px;overflow:hidden}
+.prog-inner{height:100%;border-radius:3px;transition:width .4s;box-shadow:0 0 5px currentColor}
+.prog-pct{font-family:var(--mono);font-size:10px;color:var(--sub);width:34px;text-align:right;letter-spacing:.5px}
+.mark-btn{
+  background:none;border:1px solid var(--b2);color:var(--sub);
+  font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;
+  cursor:pointer;border-radius:2px;transition:all .1s;
+}
+.mark-btn:hover{border-color:var(--green);color:var(--green)}
+.mark-btn.done-btn{background:rgba(63,255,140,.08);border-color:rgba(63,255,140,.3);color:var(--green)}
+
+/* COMPLETION */
+.day-done{
+  background:linear-gradient(135deg,rgba(63,255,140,.07),rgba(226,255,63,.04));
+  border:1px solid rgba(63,255,140,.18);border-radius:6px;padding:18px 22px;
+  text-align:center;margin-top:18px;display:none;
+}
+.day-done.show{display:block}
+.day-done h3{font-family:var(--disp);font-size:30px;color:var(--green);text-shadow:0 0 16px rgba(63,255,140,.3)}
+.day-done p{font-family:var(--mono);font-size:9px;color:var(--sub);letter-spacing:2px;margin-top:4px}
+
+/* XP TOAST */
+.toast{
+  position:fixed;top:18px;right:18px;background:var(--s2);border:1px solid var(--gold);
+  color:var(--gold);font-family:var(--mono);font-size:12px;padding:9px 16px;border-radius:4px;
+  box-shadow:0 0 18px rgba(255,208,0,.18);z-index:1000;opacity:0;transform:translateY(-8px);
+  transition:all .25s;pointer-events:none;letter-spacing:.5px;
+}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* LEVEL UP */
+.lvl-overlay{
+  position:fixed;inset:0;background:rgba(7,7,10,.93);display:flex;align-items:center;
+  justify-content:center;z-index:2000;opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.lvl-overlay.show{opacity:1;pointer-events:all}
+.lvl-box{text-align:center;animation:pop .4s cubic-bezier(.4,0,.2,1)}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.lvl-box h2{font-family:var(--disp);font-size:90px;color:var(--gold);text-shadow:0 0 60px rgba(255,208,0,.5);line-height:1}
+.lvl-box p{font-family:var(--mono);color:var(--sub);font-size:11px;letter-spacing:3px;margin-top:8px}
+.lvl-box button{
+  margin-top:22px;background:var(--gold);color:#000;border:none;
+  font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:2px;
+  padding:10px 24px;cursor:pointer;border-radius:2px;
+}
+
+/* INTERMITTENT LABEL */
+.inter-notice{
+  background:rgba(63,212,255,.04);border:1px solid rgba(63,212,255,.12);
+  border-radius:4px;padding:8px 14px;font-family:var(--mono);font-size:9px;
+  color:var(--blue);letter-spacing:1px;margin-bottom:14px;
+}
+
+@media(max-width:680px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{border-right:none;border-bottom:1px solid var(--b1);flex-direction:row;flex-wrap:wrap;padding:12px;gap:4px}
+  .s-title,.s-foot{width:100%}
+  header,.panel{padding:16px 18px}
+  .day-nav,.tabs{padding:0 18px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .xp-bar-outer{width:120px}
+}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+<div class="lvl-overlay" id="lvlOverlay">
+  <div class="lvl-box">
+    <h2 id="lvlNum">LEVEL 2</h2>
+    <p>// YOU LEVELED UP — KEEP GRINDING</p>
+    <button onclick="document.getElementById('lvlOverlay').classList.remove('show')">CONTINUE →</button>
+  </div>
+</div>
+
+<header>
+  <div class="logo">VENKY<small>// SUMMER MISSION — 30 DAYS</small></div>
+  <div class="xp-widget">
+    <div class="level-ring" id="levelRing">
+      <span class="level-num" id="levelNum">1</span>
+    </div>
+    <div>
+      <div class="xp-text">LEVEL <strong id="levelLabel">1 — ROOKIE</strong></div>
+      <div class="xp-text" style="margin-top:2px">XP: <strong id="xpDisp" style="font-size:12px">0</strong></div>
+      <div class="xp-bar-outer" style="margin-top:5px"><div class="xp-bar-inner" id="xpBar" style="width:0%"></div></div>
+      <div class="xp-text" id="xpNext" style="margin-top:3px">0 / 200 to next level</div>
+    </div>
+  </div>
+</header>
+
+<div class="day-nav" id="dayNav"></div>
+
+<div class="tabs">
+  <button class="tab active" id="tab-daily" onclick="switchTab('daily')">📋 Daily Tasks <span class="tbadge" id="tb-daily">0</span></button>
+  <button class="tab" id="tab-inter" onclick="switchTab('inter')">🔄 Every Few Days <span class="tbadge" id="tb-inter">4</span></button>
+  <button class="tab" id="tab-goals" onclick="switchTab('goals')">🏆 End of Summer <span class="tbadge" id="tb-goals">3</span></button>
+</div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="s-title">// FILTER</div>
+    <button class="s-btn on" id="sf-all" onclick="setFilter('all',this)"><span class="sdot w"></span> All</button>
+    <button class="s-btn" id="sf-study" onclick="setFilter('study',this)"><span class="sdot r"></span> Study ⚡</button>
+    <button class="s-btn" id="sf-ai" onclick="setFilter('ai',this)"><span class="sdot b"></span> AI Learning</button>
+    <button class="s-btn" id="sf-build" onclick="setFilter('build',this)"><span class="sdot g"></span> Build & Code</button>
+    <button class="s-btn" id="sf-creative" onclick="setFilter('creative',this)"><span class="sdot p"></span> Creative</button>
+    <button class="s-btn" id="sf-physical" onclick="setFilter('physical',this)"><span class="sdot o"></span> Physical</button>
+    <button class="s-btn" id="sf-hustle" onclick="setFilter('hustle',this)"><span class="sdot y"></span> Hustle</button>
+
+    <div class="s-foot">
+      <div class="s-prog-row"><span>SUMMER</span><span id="pSummer">0%</span></div>
+      <div class="s-bar"><div class="s-fill" id="fillSummer" style="width:0%"></div></div>
+      <div class="s-prog-row"><span>TODAY</span><span id="pToday">0%</span></div>
+      <div class="s-bar"><div class="s-fill" id="fillToday" style="width:0%"></div></div>
+      <div class="s-prog-row" style="margin-top:4px"><span>STREAK 🔥</span><span id="streakNum" style="color:var(--orange)">0 days</span></div>
+    </div>
+  </aside>
+
+  <div class="panel" id="panel">
+    <!-- content rendered by JS -->
+  </div>
+</div>
+
+<script>
+// ─── CONFIG ───────────────────────────────────────────────
+const DAYS = 30;
+const DAY_NAMES = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
+const FULL_NAMES = ['MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY','SUNDAY'];
+const XP_PER_LEVEL = 200;
+
+const LEVEL_TITLES = [
+  'ROOKIE','GRINDER','HUSTLER','FOCUSED','BUILDER',
+  'SHARPENED','DEDICATED','CONSISTENT','RELENTLESS','SKILLED',
+  'ADVANCED','DISCIPLINED','SHARP MIND','ELITE','TOP 1%',
+  'UNSTOPPABLE','PRODIGY','MACHINE','VISIONARY','LEGEND',
+  'MASTER','APEX','TRANSCENDENT','GENIUS','GOAT'
+];
+
+// Daily tasks — shown EVERY day
+const DAILY = [
+  {id:'math',  cat:'study',    lc:'lred', title:'Study Math',    bdg:'crit',  bt:'CRITICAL', xp:40, note:'Narayana book. Chapter by chapter. Solve problems — don\'t just read.'},
+  {id:'phys',  cat:'study',    lc:'lred', title:'Study Physics',  bdg:'crit',  bt:'CRITICAL', xp:40, note:'Narayana book. Theory + numericals both. 5 problems minimum.'},
+  {id:'chem',  cat:'study',    lc:'lred', title:'Study Chemistry',bdg:'crit',  bt:'CRITICAL', xp:40, note:'Narayana book. Reactions, equations, mechanisms. Active solving.'},
+  {id:'ai',    cat:'ai',       lc:'lblu', title:'Learn AI',       bdg:'daily', bt:'DAILY',    xp:25, note:'One advanced AI concept per day with Claude. This is your career path.'},
+  {id:'book',  cat:'creative', lc:'lpur', title:'Write the Book', bdg:'daily', bt:'DAILY',    xp:20, note:'200–500 words minimum. Build the habit. Every day = progress.'},
+  {id:'abs',   cat:'physical', lc:'lorg', title:'Ab Workout',     bdg:'daily', bt:'DAILY',    xp:15, note:'Planks, leg raises, crunches, hollow holds. 4-pack by end of summer.'},
+];
+
+// Intermittent tasks — shown every 3 days
+const INTER = [
+  {id:'connor', cat:'creative', lc:'lpur', title:'Connor Price Artwork', bdg:'inter', bt:'EVERY FEW DAYS', xp:30, note:'Connor approved. Work on it until it\'s submission-ready. Don\'t delay.'},
+  {id:'chatbot',cat:'build',    lc:'lgrn', title:'AI Chatbot Progress',  bdg:'inter', bt:'EVERY FEW DAYS', xp:30, note:'Rebuild the decision-making AI chatbot from scratch with Claude.'},
+  {id:'blog',   cat:'creative', lc:'lpur', title:'Book Blog Post',       bdg:'inter', bt:'EVERY FEW DAYS', xp:15, note:'Post to your book blog — reviews, thoughts, recs. Keep it alive.'},
+  {id:'money',  cat:'hustle',   lc:'lyel', title:'Try to Make Money',    bdg:'try',   bt:'TRY YOUR BEST',  xp:20, note:'NCS, MyGov, Skill India. Student gigs, contests, paid programs.'},
+];
+
+// End of summer goals
+const GOALS = [
+  {id:'bike',    cat:'physical', lc:'lorg', color:'var(--orange)', title:'Learn to Ride a Bike',     xp:100, note:'Practice every single day. Balance → pedaling → turning. You will get it.'},
+  {id:'upgrad',  cat:'ai',       lc:'lblu', color:'var(--blue)',   title:'Join UpGrad AI Program',   xp:100, note:'Research programs, pick the right one, and enroll before summer ends.'},
+  {id:'website', cat:'build',    lc:'lgrn', color:'var(--green)',  title:'Find Client & Build Website',xp:100,note:'Outreach → pitch → close → deliver. One website, fully completed.'},
+];
+
+const CAT_ORDER = ['study','ai','build','creative','physical','hustle'];
+const CAT_LABELS = {
+  study:'⚡ STUDY — PRIORITY #1', ai:'// AI LEARNING', build:'// BUILD & CODE',
+  creative:'// CREATIVE', physical:'// PHYSICAL', hustle:'// HUSTLE'
+};
+
+// ─── STATE ────────────────────────────────────────────────
+let S = {day:0, tab:'daily', filter:'all', done:{}, notes:{}, goalProg:{}, xp:0};
+try{ const sv=localStorage.getItem('venky_v4'); if(sv) S={...S,...JSON.parse(sv)}; }catch(e){}
+function save(){ try{ localStorage.setItem('venky_v4',JSON.stringify(S)); }catch(e){} }
+
+// ─── XP / LEVEL ───────────────────────────────────────────
+function lvl(xp){ return Math.min(Math.floor(xp/XP_PER_LEVEL)+1, 25); }
+function lvlXp(xp){ 
+  if(lvl(xp)>=25) return XP_PER_LEVEL; // full bar at max level
+  return xp%XP_PER_LEVEL; 
+}
+
+function updateXpUI(){
+  const l=lvl(S.xp), lx=lvlXp(S.xp), pct=Math.round(lx/XP_PER_LEVEL*100);
+  const title = LEVEL_TITLES[Math.min(l-1, 24)];
+  document.getElementById('levelNum').textContent=l;
+  document.getElementById('levelLabel').textContent=`${l} — ${title}`;
+  document.getElementById('xpDisp').textContent=S.xp;
+  document.getElementById('xpNext').textContent = l>=25 ? '⭐ MAX LEVEL REACHED' : `${lx} / ${XP_PER_LEVEL} to next level`;
+  document.getElementById('xpBar').style.width=pct+'%';
+  document.getElementById('levelRing').style.background=
+    `conic-gradient(var(--gold) ${pct*3.6}deg, var(--b2) ${pct*3.6}deg)`;
+}
+
+let toastT;
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove('show'),2200);
+}
+
+function gainXp(amount, label){
+  const oldL=lvl(S.xp);
+  S.xp+=amount;
+  const newL=lvl(S.xp);
+  save(); updateXpUI();
+  toast(`+${amount} XP — ${label}`);
+  if(newL>oldL){
+    document.getElementById('lvlNum').textContent='LEVEL '+newL;
+    setTimeout(()=>document.getElementById('lvlOverlay').classList.add('show'),300);
+  }
+}
+function loseXp(amount){
+  S.xp=Math.max(0,S.xp-amount);
+  save(); updateXpUI();
+}
+
+// ─── DAY NAV ──────────────────────────────────────────────
+function buildNav(){
+  const nav=document.getElementById('dayNav');
+  nav.innerHTML='';
+  for(let i=0;i<DAYS;i++){
+    const btn=document.createElement('button');
+    btn.className='day-btn'+(i===S.day?' active':'');
+    // check if all daily tasks done that day
+    const allDone=DAILY.every(t=>S.done[`d-${i}-${t.id}`]);
+    if(allDone) btn.classList.add('full');
+    btn.innerHTML=`<span class="dnum">D${i+1}</span><span>${DAY_NAMES[i%7]}</span><span class="ddot"></span>`;
+    btn.onclick=(()=>{const d=i;return()=>{S.day=d;save();buildNav();render();}})();
+    nav.appendChild(btn);
+  }
+}
+
+// ─── TABS & FILTER ────────────────────────────────────────
+function switchTab(t){
+  S.tab=t; save();
+  ['daily','inter','goals'].forEach(x=>{
+    document.getElementById('tab-'+x).classList.toggle('active',x===t);
+  });
+  render();
+}
+
+function setFilter(f,el){
+  S.filter=f; save();
+  document.querySelectorAll('.s-btn').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  render();
+}
+
+// Intermittent tasks repeat every 3 days. We use the cycle number as key
+// so the task stays "done" for the whole 3-day window once completed.
+const INTER_CYCLE_DAYS = 3;
+function interCycle(day){ return Math.floor(day / INTER_CYCLE_DAYS); }
+function interDueDay(day){ return day % INTER_CYCLE_DAYS === 0; } // day 0,3,6,9...
+function interKey(id, day){ return `i-c${interCycle(day)}-${id}`; }
+
+// ─── TOGGLE TASK DONE ─────────────────────────────────────
+function toggleDone(prefix, id){
+  const allTasks=[...DAILY,...INTER];
+  const task=allTasks.find(t=>t.id===id);
+  let key;
+  if(prefix==='i') key=interKey(id, S.day);
+  else key=`${prefix}-${S.day}-${id}`;
+  const was=!!S.done[key];
+  S.done[key]=!was;
+  if(!was) gainXp(task.xp, task.title);
+  else loseXp(task.xp);
+  save(); render(); buildNav();
+}
+
+function setNote(prefix, id){
+  let key;
+  if(prefix==='i') key=`inote-c${interCycle(S.day)}-${id}`;
+  else key=`${prefix}-${S.day}-${id}`;
+  const n=prompt('Note:',S.notes[key]||'');
+  if(n!==null){S.notes[key]=n;save();render();}
+}
+
+// ─── GOAL PROGRESS ────────────────────────────────────────
+function setGoalProg(id, val){
+  const prev=S.goalProg[id]||0;
+  S.goalProg[id]=val;
+  if(val>=100 && prev<100) gainXp(GOALS.find(g=>g.id===id).xp, GOALS.find(g=>g.id===id).title+' COMPLETED!');
+  else if(val<100 && prev>=100) loseXp(GOALS.find(g=>g.id===id).xp);
+  save(); render();
+}
+
+// ─── RENDER ───────────────────────────────────────────────
+function render(){
+  const panel=document.getElementById('panel');
+  panel.innerHTML='';
+
+  if(S.tab==='daily') renderDaily(panel);
+  else if(S.tab==='inter') renderInter(panel);
+  else renderGoals(panel);
+
+  updateSidebar();
+}
+
+function makeTaskCard(prefix, task, isDone, userNote){
+  const card=document.createElement('div');
+  card.className=`tc ${task.lc}${isDone?' done':''}`;
+  card.innerHTML=`
+    <button class="chk${isDone?' on':''}" onclick="toggleDone('${prefix}','${task.id}')">${isDone?'✓':''}</button>
+    <div>
+      <div class="ttl">${task.title}</div>
+      <div class="tmeta">
+        <span class="bdg ${task.bdg}">${task.bt}</span>
+        <span class="txp">+${task.xp} XP</span>
+      </div>
+      <div class="tnote">${task.note}</div>
+      ${userNote?`<div class="tnote usr">📌 ${userNote}</div>`:''}
+    </div>
+    <button class="nbtn" onclick="setNote('${prefix}','${task.id}')">NOTE</button>
+  `;
+  return card;
+}
+
+function makeSecHeader(label, totalXp){
+  const d=document.createElement('div');
+  d.className='sec-hd';
+  d.innerHTML=`<span>${label}</span>${totalXp?`<span class="sxp">up to ${totalXp} XP</span>`:''}`;
+  return d;
+}
+
+// DAILY TAB
+function renderDaily(panel){
+  // Stats row
+  const statsDiv=document.createElement('div');
+  statsDiv.className='stats';
+
+  const tasks=DAILY.filter(t=>S.filter==='all'||t.cat===S.filter);
+  let done=0, dayXp=0;
+  tasks.forEach(t=>{ if(S.done[`d-${S.day}-${t.id}`]){ done++; dayXp+=t.xp; } });
+
+  let streak=0;
+  for(let d=S.day-1;d>=0;d--){
+    if(DAILY.every(t=>S.done[`d-${d}-${t.id}`])) streak++;
+    else break;
+  }
+
+  statsDiv.innerHTML=`
+    <div class="stat"><div class="stat-n g">${done}</div><div class="stat-l">Done</div></div>
+    <div class="stat"><div class="stat-n r">${tasks.length-done}</div><div class="stat-l">Left</div></div>
+    <div class="stat"><div class="stat-n gold">${dayXp}</div><div class="stat-l">XP Today</div></div>
+    <div class="stat"><div class="stat-n b">${streak}</div><div class="stat-l">Streak 🔥</div></div>
+  `;
+  panel.appendChild(statsDiv);
+
+  // Day label
+  const dl=document.createElement('div');
+  dl.style.cssText='font-family:var(--mono);font-size:9px;color:var(--sub);letter-spacing:3px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center';
+  dl.innerHTML=`<span>// ${FULL_NAMES[S.day%7]} — DAY ${S.day+1} OF ${DAYS}</span>${dayXp>0?`<span style="color:var(--gold)">${dayXp} XP EARNED</span>`:''}`;
+  panel.appendChild(dl);
+
+  // Task list
+  const list=document.createElement('div');
+  list.className='tlist';
+
+  const sorted=[...tasks].sort((a,b)=>CAT_ORDER.indexOf(a.cat)-CAT_ORDER.indexOf(b.cat));
+  let lastCat=null;
+  sorted.forEach(t=>{
+    if(t.cat!==lastCat){
+      lastCat=t.cat;
+      const catXp=DAILY.filter(x=>x.cat===t.cat).reduce((a,x)=>a+x.xp,0);
+      list.appendChild(makeSecHeader(CAT_LABELS[t.cat], catXp));
+    }
+    const isDone=!!S.done[`d-${S.day}-${t.id}`];
+    const note=S.notes[`d-${S.day}-${t.id}`];
+    list.appendChild(makeTaskCard('d',t,isDone,note));
+  });
+
+  panel.appendChild(list);
+
+  // Show inter tasks on due days AND on remaining days in the window if not all done
+  const isInterDue = interDueDay(S.day);
+  const interTasks = INTER.filter(t => S.filter==='all' || t.cat===S.filter);
+  const cycleForToday = interCycle(S.day);
+  const anyInterLeft = interTasks.some(t => !S.done[interKey(t.id, S.day)]);
+  const showInter = isInterDue || anyInterLeft;
+
+  if(showInter && interTasks.length>0){
+    const daysLeftInWindow = INTER_CYCLE_DAYS - (S.day % INTER_CYCLE_DAYS);
+    const interBanner = document.createElement('div');
+    interBanner.className='inter-notice';
+    interBanner.style.margin='18px 0 8px';
+    if(isInterDue){
+      interBanner.innerHTML=`🔄 <strong>EVERY FEW DAYS — NEW WINDOW STARTS TODAY</strong> &nbsp;·&nbsp; Day ${S.day+1}, ${daysLeftInWindow} days to complete these.`;
+    } else {
+      interBanner.innerHTML=`🔄 <strong>EVERY FEW DAYS — WINDOW ONGOING</strong> &nbsp;·&nbsp; ${daysLeftInWindow} day${daysLeftInWindow===1?'':'s'} left in this window to finish these.`;
+    }
+    panel.appendChild(interBanner);
+
+    const ilist = document.createElement('div');
+    ilist.className='tlist';
+    let lastICat=null;
+    interTasks.forEach(t=>{
+      if(t.cat!==lastICat){
+        lastICat=t.cat;
+        ilist.appendChild(makeSecHeader(CAT_LABELS[t.cat]||'// TASK', t.xp));
+      }
+      const isDone=!!S.done[interKey(t.id, S.day)];
+      if(isDone) done++;
+      const note=S.notes[`inote-c${cycleForToday}-${t.id}`];
+      ilist.appendChild(makeTaskCard('i',t,isDone,note));
+    });
+    panel.appendChild(ilist);
+  }
+
+  // All done banner
+  const totalTasks = tasks.length + (showInter ? interTasks.length : 0);
+  if(totalTasks>0 && done===totalTasks){
+    const banner=document.createElement('div');
+    banner.className='day-done show';
+    banner.innerHTML='<h3>🔥 DAY COMPLETE!</h3><p>ALL TASKS DONE — RESPECT THE GRIND</p>';
+    panel.appendChild(banner);
+  }
+
+  // Update tab badge
+  document.getElementById('tb-daily').textContent=`${done}/${totalTasks}`;
+}
+
+// INTER TAB
+function renderInter(panel){
+  const cycle = interCycle(S.day);
+  const isDueToday = interDueDay(S.day);
+  const daysUntilNext = INTER_CYCLE_DAYS - (S.day % INTER_CYCLE_DAYS);
+  const cycleStart = cycle * INTER_CYCLE_DAYS + 1; // human-readable
+  const cycleEnd   = Math.min(cycleStart + INTER_CYCLE_DAYS - 1, DAYS);
+
+  const notice=document.createElement('div');
+  notice.className='inter-notice';
+  notice.innerHTML = isDueToday
+    ? `🔔 <strong>These tasks are DUE TODAY</strong> — Day ${S.day+1} starts a new 3-day window (Days ${cycleStart}–${cycleEnd}). Complete them anytime this window.`
+    : `⏳ Current window: Days ${cycleStart}–${cycleEnd}. Complete these tasks before Day ${cycleEnd+1>DAYS?DAYS:cycleEnd+1}. You can still tick them off.`;
+  panel.appendChild(notice);
+
+  const tasks=INTER.filter(t=>S.filter==='all'||t.cat===S.filter);
+  const list=document.createElement('div');
+  list.className='tlist';
+
+  let done=0;
+  tasks.forEach(t=>{
+    list.appendChild(makeSecHeader(CAT_LABELS[t.cat]||'// TASK', t.xp));
+    const key=interKey(t.id, S.day);
+    const isDone=!!S.done[key];
+    if(isDone) done++;
+    const noteKey=`inote-c${cycle}-${t.id}`;
+    const note=S.notes[noteKey];
+    list.appendChild(makeTaskCard('i',t,isDone,note));
+  });
+
+  panel.appendChild(list);
+
+  if(tasks.length>0 && done===tasks.length){
+    const banner=document.createElement('div');
+    banner.className='day-done show';
+    banner.innerHTML='<h3>✅ WINDOW COMPLETE!</h3><p>ALL TASKS FOR THIS CYCLE DONE — NEXT SET IN ' + (daysUntilNext===INTER_CYCLE_DAYS?'3':daysUntilNext) + ' DAYS</p>';
+    panel.appendChild(banner);
+  }
+
+  document.getElementById('tb-inter').textContent=`${done}/${tasks.length}`;
+}
+
+// GOALS TAB
+function renderGoals(panel){
+  const hd=document.createElement('div');
+  hd.style.cssText='font-family:var(--mono);font-size:9px;color:var(--sub);letter-spacing:2px;margin-bottom:16px';
+  hd.textContent=`// COMPLETE THESE BEFORE THE END OF SUMMER — EACH WORTH 100 XP`;
+  panel.appendChild(hd);
+
+  let doneCount=0;
+  GOALS.forEach(g=>{
+    const prog=S.goalProg[g.id]||0;
+    if(prog>=100) doneCount++;
+    const isDone=prog>=100;
+
+    const card=document.createElement('div');
+    card.className='gc';
+    card.style.borderLeftColor=g.color;
+    card.style.borderLeft=`3px solid ${isDone?g.color:'var(--b2)'}`;
+    card.innerHTML=`
+      <div class="gc-top">
+        <div class="gc-title">
+          <span style="width:8px;height:8px;border-radius:50%;background:${g.color};box-shadow:0 0 6px ${g.color};flex-shrink:0;display:inline-block"></span>
+          <span style="${isDone?'text-decoration:line-through;color:var(--sub)':''}">${g.title}</span>
+        </div>
+        <button class="mark-btn ${isDone?'done-btn':''}" onclick="setGoalProg('${g.id}', ${isDone?0:100})">
+          ${isDone?'✓ DONE':'MARK DONE'}
+        </button>
+      </div>
+      <div class="gc-note">${g.note}</div>
+      <div class="prog-row">
+        <div class="prog-outer">
+          <div class="prog-inner" style="width:${prog}%;background:${g.color}"></div>
+        </div>
+        <div class="prog-pct">${prog}%</div>
+      </div>
+      <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
+        ${[0,25,50,75,100].map(v=>`
+          <button onclick="setGoalProg('${g.id}',${v})"
+            style="background:${prog===v?g.color:'none'};color:${prog===v?'#000':g.color};border:1px solid ${g.color};
+            font-family:var(--mono);font-size:8px;padding:3px 9px;cursor:pointer;border-radius:2px;
+            opacity:${prog===v?'1':'.5'};transition:all .1s">
+            ${v}%
+          </button>`).join('')}
+      </div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--gold);margin-top:8px">+${g.xp} XP on completion</div>
+    `;
+    panel.appendChild(card);
+  });
+
+  document.getElementById('tb-goals').textContent=`${doneCount}/${GOALS.length}`;
+}
+
+// SIDEBAR STATS
+function updateSidebar(){
+  // Summer overall: daily tasks
+  let total=0,tdone=0;
+  for(let d=0;d<DAYS;d++){
+    DAILY.forEach(t=>{ total++; if(S.done[`d-${d}-${t.id}`]) tdone++; });
+  }
+  const sp=total>0?Math.round(tdone/total*100):0;
+  document.getElementById('pSummer').textContent=sp+'%';
+  document.getElementById('fillSummer').style.width=sp+'%';
+
+  // Today
+  const todayDone=DAILY.filter(t=>S.done[`d-${S.day}-${t.id}`]).length;
+  const dp=DAILY.length>0?Math.round(todayDone/DAILY.length*100):0;
+  document.getElementById('pToday').textContent=dp+'%';
+  document.getElementById('fillToday').style.width=dp+'%';
+
+  // Streak
+  let streak=0;
+  for(let d=S.day-1;d>=0;d--){
+    if(DAILY.every(t=>S.done[`d-${d}-${t.id}`])) streak++;
+    else break;
+  }
+  document.getElementById('streakNum').textContent=streak+' days';
+}
+
+// ─── INIT ─────────────────────────────────────────────────
+buildNav();
+updateXpUI();
+render();
+</script>
+</body>
+</html>
